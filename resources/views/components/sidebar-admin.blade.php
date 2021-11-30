@@ -4,7 +4,7 @@
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
           <img src="{{ asset('img/logo.jpeg') }}" class="navbar-brand-img" alt="...">
-          <p>SMK Az-Zahra</p>
+          <p>SMK Az-Zahra Sonomartani</p>
         </a>
       </div>
       <div class="navbar-inner">
