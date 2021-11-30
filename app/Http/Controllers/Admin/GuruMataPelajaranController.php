@@ -11,7 +11,7 @@ class GuruMataPelajaranController extends Controller
 {
     public function index(Request $request, MataPelajaran $mata_pelajaran){
         $q_nama = $request->q_nama;
-        $guru_mata_pelajaran = GuruMataPelajaran::orderBy('id', 'desc');
+        $guru_mata_pelajaran = GuruMataPelajaran::where('mata_pelajaran_id', $mata_pelajaran->id)->orderBy('id', 'desc');
 
         if (!empty($q_nama)) {
             $guru_mata_pelajaran->where('nama', 'LIKE', '%'.$q_nama.'%');

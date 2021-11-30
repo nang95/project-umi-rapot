@@ -23,8 +23,9 @@ class RaporController extends Controller
 
         $sekolah = Sekolah::first();
         $guru = Guru::where('user_id', auth()->user()->id)->first();
+        
         $kelas = Kelas::whereIn('id', function($query) use($guru){
-            $query->select('kelas_id')->from('guru_mata_pelajarans')->where('guru_id', $guru->id);
+            $query->select('kelas_id')->from('rombels')->where('guru_id', $guru->id);
         })->get();
 
         $tahun_ajaran = DaftarNilai::groupBy('tahun_ajaran')->get();
@@ -33,7 +34,12 @@ class RaporController extends Controller
         $skipped = [];
         if (!empty($q_kelas) && !empty($q_tahun_ajaran)) {
             $rapor = DaftarNilai::where('tahun_ajaran', $sekolah->tahun_ajaran)
-                                       ->groupBy('siswa_id');
+                                ->whereIn('siswa_id', function($siswa_rombel) use($q_kelas){
+                                    $siswa_rombel->select('siswa_id')->from('siswa_rombels')->whereIn('rombel_id', function($rombel) use($q_kelas){
+                                        $rombel->select('id')->from('rombels')->where('kelas_id', $q_kelas);
+                                    });
+                                })
+                                ->groupBy('siswa_id');
             
             $rapor = $rapor->paginate();
             $skipped = ($rapor->perPage() * $rapor->currentPage()) - $rapor->perPage();

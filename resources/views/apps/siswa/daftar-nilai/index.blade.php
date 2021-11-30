@@ -73,7 +73,7 @@
                                 <option value="Ganjil"
                                     @if ($q_semester == "Ganjil")
                                         selected
-                                    @endif>Genap</option>
+                                    @endif>Ganjil</option>
                                 <option value="Genap"
                                     @if ($q_semester == "Genap")
                                         selected
@@ -101,9 +101,6 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <h3 class="mb-0">Daftar Nilai</h3>
-                    </div>
-                    <div class="col text-right">
-                        <button class="btn btn-sm btn-success">Simpan</button>
                     </div>
                 </div>
             </div>

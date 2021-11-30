@@ -16,7 +16,7 @@ class CreateAbsensisTable extends Migration
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('siswa_id');
             $table->foreign('siswa_id')->on('siswas')->references('id')->onDelete('cascade');
             $table->timestamps();

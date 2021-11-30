@@ -12,9 +12,12 @@ class AbsensiController extends Controller
     public function index(Request $request){
         $q_kelas = $request->q_kelas;
         $q_nama = $request->q_nama;
-        
-        $kelas = Kelas::get();
+    
         $guru = Guru::where('user_id', auth()->user()->id)->first();
+
+        $kelas = Kelas::whereIn('id', function($query) use($guru){
+            $query->select('kelas_id')->from('rombels')->where('guru_id', $guru->id);
+        })->get();
 
         $siswa_rombel = SiswaRombel::whereHas('rombel', function($query) use($guru, $q_kelas){
             $query->where('guru_id', $guru->id)->where('kelas_id', $q_kelas);
@@ -39,9 +42,9 @@ class AbsensiController extends Controller
         $skipped = [];
 
         if (!empty($q_kelas)) {
-            $absensi = Absensi::whereIn('siswa_id', function($siswa_rombel) use($guru){
-                $siswa_rombel->select('siswa_id')->from('siswa_rombels')->whereIn('rombel_id', function($rombel) use($guru){
-                    $rombel->select('id')->from('rombels')->where('guru_id', $guru->id);
+            $absensi = Absensi::whereIn('siswa_id', function($siswa_rombel) use($guru, $q_kelas){
+                $siswa_rombel->select('siswa_id')->from('siswa_rombels')->whereIn('rombel_id', function($rombel) use($guru, $q_kelas){
+                    $rombel->select('id')->from('rombels')->where('guru_id', $guru->id)->where('kelas_id', $q_kelas);
                 });
             })->where('tanggal', date('Y-m-d'));
 
