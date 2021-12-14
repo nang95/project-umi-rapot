@@ -24,14 +24,15 @@ class DaftarNilaiController extends Controller
         $kelas = Kelas::whereIn('id', function($query) use($guru){
             $query->select('kelas_id')->from('guru_mata_pelajarans')->where('guru_id', $guru->id);
         })->get();
+
         $daftar_nilai = [];
 
         if (!empty($q_mapel) && !empty($q_kelas)) {
             $sekolah = Sekolah::first();
-
+           
             $siswa = Siswa::whereIn('id', function($siswa_rombel) use($q_kelas, $guru){
                 $siswa_rombel->select('siswa_id')->from('siswa_rombels')->whereIn('rombel_id', function($rombel) use($q_kelas, $guru){
-                    $rombel->select('id')->from('rombels')->where('guru_id', $guru->id)->where('kelas_id', $q_kelas);
+                    $rombel->select('id')->from('rombels')->where('kelas_id', $q_kelas);
                 });
             })->get();
 
@@ -55,12 +56,19 @@ class DaftarNilaiController extends Controller
                         'nilai' => 0,
                     ]);
                 }
+
+                $daftar_nilai = DaftarNilai::whereHas('guruMataPelajaran', function($query) use($guru, $q_mapel){
+                    $query->where('guru_id', $guru->id)->where('mata_pelajaran_id', $q_mapel);
+                })
+                ->whereIn('siswa_id', function($siswa_rombel) use($q_kelas, $guru){
+                    $siswa_rombel->select('siswa_id')->from('siswa_rombels')->whereIn('rombel_id', function($rombel) use($q_kelas, $guru){
+                        $rombel->select('id')->from('rombels')->where('kelas_id', $q_kelas);
+                    });
+                })
+                ->where('jenis_ujian', $q_jenis_ujian)
+                ->where('periode', $q_periode)->get();
             }
-            
-            $daftar_nilai = DaftarNilai::whereHas('guruMataPelajaran', function($query) use($guru, $q_mapel){
-                $query->where('guru_id', $guru->id)->where('mata_pelajaran_id', $q_mapel);
-            })->where('jenis_ujian', $q_jenis_ujian)
-              ->where('periode', $q_periode)->get();
+
         }
         
 

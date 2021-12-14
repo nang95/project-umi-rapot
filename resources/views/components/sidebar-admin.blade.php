@@ -4,7 +4,7 @@
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
           <img src="{{ asset('img/logo.jpeg') }}" class="navbar-brand-img" alt="...">
-          <p>SMK Az-Zahra</p>
+          <p>SMK Az-Zahra Sonomartani</p>
         </a>
       </div>
       <div class="navbar-inner">
@@ -43,12 +43,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.mata_pelajaran') }}">
-                <i class="ni ni-bullet-list-67 text-default"></i>
-                <span class="nav-link-text">Mata Pelajaran</span>
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{{ route('admin.tingkat') }}">
                 <i class="fas fa-level-up-alt text-default"></i>
                 <span class="nav-link-text">Tingkat</span>
@@ -58,6 +52,12 @@
               <a class="nav-link" href="{{ route('admin.kelas') }}">
                 <i class="fas fa-chalkboard text-cyan"></i>
                 <span class="nav-link-text">Kelas</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.mata_pelajaran') }}">
+                <i class="ni ni-bullet-list-67 text-default"></i>
+                <span class="nav-link-text">Mata Pelajaran</span>
               </a>
             </li>
             <li class="nav-item">

@@ -56,7 +56,7 @@
                 <div class="row">  
                     <div class="col-lg-6">
                       <a href="{{ route('guru.rapor') }}">
-                        <button class="btn btn-sm btn-danger">Batal</button>
+                        <button type="button" class="btn btn-sm btn-danger">Batal</button>
                       </a>
                     </div>
                     <div class="col-lg-6 text-right">
