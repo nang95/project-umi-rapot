@@ -55,6 +55,6 @@ class MataPelajaranController extends Controller
         $mata_pelajaran = MataPelajaran::findOrFail($request->id);
 
         $mata_pelajaran->delete();
-        return redirect()->route('admin.mata-pelajaran');
+        return redirect()->route('admin.mata_pelajaran');
     }
 }
