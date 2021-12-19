@@ -84,6 +84,12 @@ class RaporController extends Controller
                             ->groupBy('guru_mata_pelajaran_id')
                             ->get();
         
+        $jmlh_hadir = Absensi::where('siswa_id', $siswa->id)->where('status','H')->count();
+        $jmlh_sakit = Absensi::where('siswa_id', $siswa->id)->where('status','S')->count();
+        $jmlh_izin = Absensi::where('siswa_id', $siswa->id)->where('status','I')->count();
+        $jmlh_alpha = Absensi::where('siswa_id', $siswa->id)->where('status','A')->count();
+
+        
         // return view('apps.guru.rapor.cetak-nilai')->with('rapor', $rapor)
         //                                           ->with('siswa_rombel', $siswa_rombel)
         //                                           ->with('sekolah', $sekolah);
@@ -92,6 +98,10 @@ class RaporController extends Controller
             'rapor' => $rapor,
             'siswa_rombel' => $siswa_rombel,
             'sekolah' => $sekolah,
+            'jmlh_hadir' => $jmlh_hadir,
+            'jmlh_sakit' => $jmlh_sakit,
+            'jmlh_izin' => $jmlh_izin,
+            'jmlh_alpha' => $jmlh_alpha,
         ]);
 
 	    return $pdf->download('lembar-2.pdf');
