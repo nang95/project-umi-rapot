@@ -115,48 +115,12 @@ class RaporController extends Controller
         $siswa_rombel = SiswaRombel::where('siswa_id', $request->siswa_id)->first();
         $sekolah = Sekolah::first();
 
-        $hadir = Absensi::where('status', 'H')
-                            ->where('siswa_id', $request->siswa_id)
-                            ->where('semester', $sekolah->semester)
-                            ->where('tahun_ajaran', $sekolah->tahun_ajaran)
-                            ->count();
-
-        $izin = Absensi::where('status', 'I')
-                            ->where('siswa_id', $request->siswa_id)
-                            ->where('semester', $sekolah->semester)
-                            ->where('tahun_ajaran', $sekolah->tahun_ajaran)
-                            ->count();
-
-        $sakit = Absensi::where('status', 'S')
-                            ->where('siswa_id', $request->siswa_id)
-                            ->where('semester', $sekolah->semester)
-                            ->where('tahun_ajaran', $sekolah->tahun_ajaran)
-                            ->count();
-
-        $alfa = Absensi::where('status', 'A')
-                            ->where('siswa_id', $request->siswa_id)
-                            ->where('semester', $sekolah->semester)
-                            ->where('tahun_ajaran', $sekolah->tahun_ajaran)
-                            ->count();
-
         $data = $request->all();
 
-        // return view('apps.guru.rapor.cetak-catatan')->with('siswa_rombel', $siswa_rombel)
-        //                                           ->with('sekolah', $sekolah)
-        //                                           ->with('hadir', $hadir)
-        //                                           ->with('izin', $izin)
-        //                                           ->with('alfa', $alfa)
-        //                                           ->with('sakit', $sakit)
-        //                                           ->with('data', $data);
-        
         $pdf = PDF::loadview('apps.guru.rapor.cetak-catatan',[
             'siswa_rombel' => $siswa_rombel,
             'sekolah' => $sekolah,
-            'hadir' => $hadir,
-            'sakit' => $sakit,
-            'izin' => $izin,
-            'alfa' => $alfa,
-            'data' => $data,
+            'catatan' => $request->catatan_wali_kelas
         ]);
                                         
         return $pdf->download('lembar-3.pdf');

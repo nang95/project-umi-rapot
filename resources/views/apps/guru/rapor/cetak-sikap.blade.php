@@ -10,33 +10,24 @@
     <header>
         <table style="width: 100%; border-bottom: 2px solid black">
             <tr>
-                <td>Nama Sekolah</td>
-                <td>: SMK Az-Zahra</td>
-                <td style="width: 60%;"></td>
-                <td>Kelas</td>
-                <td>: {{ $siswa_rombel->rombel->kelas->nama }}</td>
+                <td width="20%">Nama Peserta Didik</td>
+                <td width="40%">: {{ $siswa_rombel->siswa->nama }}</td>
+                <td width="15%">Semester </td>
+                <td width="20%">: {{ $sekolah->semester }}</td>
             </tr>
             <tr>
-                <td>Alamat</td>
-                <td>: Batubara</td>
-                <td></td>
-                <td>Semester</td>
-                <td>: {{ $sekolah->semester }}</td>
+                <td width="20%">NISN</td>
+                <td width="40%">: {{ $siswa_rombel->siswa->nisn }}</td>
+                <td width="15%">Tahun Ajaran </td>
+                <td width="20%">: {{ $sekolah->tahun_ajaran }}</td>
             </tr>
             <tr>
-                <td>Nama Peserta Didik</td>
-                <td>: {{ $siswa_rombel->siswa->nama }}</td>
-                <td></td>
-                <td>Tahun Ajaran</td>
-                <td>: {{ $sekolah->tahun_ajaran }}</td>
-            </tr>
-            <tr>
-                <td>NISN</td>
-                <td>: {{ $siswa_rombel->siswa->nisn }}</td>
-                <td colspan="3"></td>
+                <td width="20%">Kelas</td>
+                <td width="40%" colspan="2">: {{ $siswa_rombel->rombel->kelas->nama }}</td>
             </tr>
         </table>
     </header>
+
 
     <main>
         <div style="margin-top: 20px">A. Sikap</div>
